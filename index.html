@@ -12,8 +12,8 @@
     h2 { margin-top: 30px; }
     .controls { margin-top: 10px; }
     @media (max-width: 500px) {
-      .board { grid-template-columns: repeat(4, 24vw); }
-      .card { width: 24vw; height: 24vw; }
+      .board { grid-template-columns: repeat(4, 21vw); }
+      .card { width: 21vw; height: 21vw; }
     }
   </style>
 </head>
@@ -76,7 +76,7 @@ const soundSalah = new Audio('salah.wav');
         cb.classList.add('matched');
         matched.push(a, b);
         if (matched.length === cards.length) {
-          setTimeout(() => alert('Selamat! Semua kartu cocok!\nTotal langkah: ' + steps), 200);
+          setTimeout(() => alert('Selamat! Kamu Berhasil!\nTotal langkah: ' + steps), 200);
         }
       } else {
         soundSalah.currentTime = 0; soundSalah.play(); // Sound salah
