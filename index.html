@@ -4,7 +4,11 @@
   <title>Memory Game - Keluarga Mikhael</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: Arial, sans-serif; background: #f5f5fa; text-align: center; }
+    body {
+  font-family: Arial, sans-serif;
+  background: url('background.jpeg') center/cover no-repeat fixed;
+  text-align: center;
+}
     .board { display: grid; grid-template-columns: repeat(4, 70px); gap: 10px; justify-content: center; margin: 30px auto; }
     .card { width: 70px; height: 70px; background: #ddd; border-radius: 12px; box-shadow: 0 2px 8px #ccc; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .flipped, .matched { background: #fff; }
