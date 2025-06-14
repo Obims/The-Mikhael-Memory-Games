@@ -4,6 +4,31 @@
   <title>Memory Game - Keluarga Mikhael</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    #footer-fancy {
+  margin: 0 auto 20px auto;
+  padding: 12px 28px 8px 28px;
+  max-width: 340px;
+  text-align: center;
+  background: linear-gradient(90deg, #fbc2eb 0%, #a6c1ee 100%);
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #a6c1ee44;
+  font-weight: bold;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.2em;
+}
+.footer-icon {
+  font-size: 1.5em;
+  filter: drop-shadow(0 0 8px #fff5);
+  animation: icon-glow 1.5s infinite alternate;
+}
+@keyframes icon-glow {
+  from { filter: drop-shadow(0 0 4px #fff8) brightness(1.2);}
+  to   { filter: drop-shadow(0 0 18px #fff8) brightness(1.6);}
+}
     body {
   font-family: Arial, sans-serif;
   background: url('background.jpeg') center/cover no-repeat fixed;
