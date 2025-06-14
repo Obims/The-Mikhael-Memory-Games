@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Memory Game Foto Sendiri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5fa; text-align: center; }
+    .board { display: grid; grid-template-columns: repeat(4, 70px); gap: 10px; justify-content: center; margin: 30px auto; }
+    .card { width: 70px; height: 70px; background: #ddd; border-radius: 12px; box-shadow: 0 2px 8px #ccc; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .flipped, .matched { background: #fff; }
+    .card img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+    h2 { margin-top: 30px; }
+    .controls { margin-top: 10px; }
+    @media (max-width: 500px) {
+      .board { grid-template-columns: repeat(4, 18vw); }
+      .card { width: 18vw; height: 18vw; }
+    }
+  </style>
+</head>
+<body>
+  <h2>Memory Game - Foto Kamu!</h2>
+  <div class="board" id="board"></div>
+  <div class="controls">
+    <button onclick="init()">Reset</button>
+    <span id="step"></span>
+  </div>
+  <script>
+    // Ganti nama file sesuai foto kamu
+    const images = [
+      'foto1.jpg',
+      'foto2.jpg',
+      'foto3.jpg',
+      'foto4.jpg',
+      'foto1.jpg', 
+      'foto2.jpg',
+      'foto3.jpg',
+      'foto4.jpg'
+    ];
+    let cards = [], flipped = [], matched = [], steps = 0, board;
+    function shuffle(arr){ for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}}
+    function init() {
+      cards = [...images];
+      shuffle(cards);
+      flipped = []; matched = []; steps = 0;
+      board = document.getElementById('board');
+      board.innerHTML = '';
+      document.getElementById('step').textContent = 'Langkah: 0';
+      for (let i = 0; i < cards.length; i++) {
+        let div = document.createElement('div');
+        div.className = 'card';
+        div.dataset.index = i;
+        div.onclick = () => flip(i, div);
+        board.appendChild(div);
+      }
+    }
+    function flip(i, div) {
+      if (matched.includes(i) || flipped.includes(i) || flipped.length === 2) return;
+      div.innerHTML = `<img src="${cards[i]}" alt="foto" loading="lazy">`;
+      div.classList.add('flipped');
+      flipped.push(i);
+      if (flipped.length === 2) {
+        steps++;
+        document.getElementById('step').textContent = 'Langkah: ' + steps;
+        setTimeout(() => {
+          let [a, b] = flipped;
+          let ca = document.querySelectorAll('.card')[a];
+          let cb = document.querySelectorAll('.card')[b];
+          if (cards[a] === cards[b]) {
+            ca.classList.add('matched');
+            cb.classList.add('matched');
+            matched.push(a, b);
+            if (matched.length === cards.length) {
+              setTimeout(() => alert('Selamat! Semua kartu cocok!\nTotal langkah: ' + steps), 200);
+            }
+          } else {
+            ca.innerHTML = '';
+            cb.innerHTML = '';
+            ca.classList.remove('flipped');
+            cb.classList.remove('flipped');
+          }
+          flipped = [];
+        }, 700);
+      }
+    }
+    init();
+  </script>
+</body>
+</html>
