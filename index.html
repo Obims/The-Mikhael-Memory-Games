@@ -103,7 +103,7 @@ const soundSalah = new Audio('salah.wav');
       flipped = []; matched = []; steps = 0;
       board = document.getElementById('board');
       board.innerHTML = '';
-      document.getElementById('step');
+      document.getElementById('step').textContent = 'Langkah: 0';
       for (let i = 0; i < cards.length; i++) {
         let div = document.createElement('div');
         div.className = 'card';
