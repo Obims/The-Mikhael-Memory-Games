@@ -36,6 +36,9 @@
       'foto3.jpg',
       'foto4.jpg'
     ];
+    const soundClick = new Audio('click.wav');
+const soundBenar = new Audio('benar.wav');
+const soundSalah = new Audio('salah.wav');
     let cards = [], flipped = [], matched = [], steps = 0, board;
     function shuffle(arr){ for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}}
     function init() {
@@ -54,34 +57,38 @@
       }
     }
     function flip(i, div) {
-      if (matched.includes(i) || flipped.includes(i) || flipped.length === 2) return;
-      div.innerHTML = `<img src="${cards[i]}" alt="foto" loading="lazy">`;
-      div.classList.add('flipped');
-      flipped.push(i);
-      if (flipped.length === 2) {
-        steps++;
-        document.getElementById('step').textContent = 'Langkah: ' + steps;
-        setTimeout(() => {
-          let [a, b] = flipped;
-          let ca = document.querySelectorAll('.card')[a];
-          let cb = document.querySelectorAll('.card')[b];
-          if (cards[a] === cards[b]) {
-            ca.classList.add('matched');
-            cb.classList.add('matched');
-            matched.push(a, b);
-            if (matched.length === cards.length) {
-              setTimeout(() => alert('Selamat! Semua kartu cocok!\nTotal langkah: ' + steps), 200);
-            }
-          } else {
-            ca.innerHTML = '';
-            cb.innerHTML = '';
-            ca.classList.remove('flipped');
-            cb.classList.remove('flipped');
-          }
-          flipped = [];
-        }, 700);
+  if (matched.includes(i) || flipped.includes(i) || flipped.length === 2) return;
+  soundClick.currentTime = 0; soundClick.play(); // << Tambahin baris ini untuk sound klik
+
+  div.innerHTML = `<img src="${cards[i]}" alt="foto" loading="lazy">`;
+  div.classList.add('flipped');
+  flipped.push(i);
+  if (flipped.length === 2) {
+    steps++;
+    document.getElementById('step').textContent = 'Langkah: ' + steps;
+    setTimeout(() => {
+      let [a, b] = flipped;
+      let ca = document.querySelectorAll('.card')[a];
+      let cb = document.querySelectorAll('.card')[b];
+      if (cards[a] === cards[b]) {
+        soundBenar.currentTime = 0; soundBenar.play(); // Sound benar
+        ca.classList.add('matched');
+        cb.classList.add('matched');
+        matched.push(a, b);
+        if (matched.length === cards.length) {
+          setTimeout(() => alert('Selamat! Semua kartu cocok!\nTotal langkah: ' + steps), 200);
+        }
+      } else {
+        soundSalah.currentTime = 0; soundSalah.play(); // Sound salah
+        ca.innerHTML = '';
+        cb.innerHTML = '';
+        ca.classList.remove('flipped');
+        cb.classList.remove('flipped');
       }
-    }
+      flipped = [];
+    }, 700);
+  }
+}
     init();
   </script>
 </body>
